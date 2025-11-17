@@ -14,6 +14,7 @@ interface UploadedFile {
 
 interface FlashcardsProps {
   uploadedFile: UploadedFile;
+  darkMode: boolean;
 }
 
 interface Flashcard {
@@ -23,7 +24,7 @@ interface Flashcard {
   tag: string;
 }
 
-export default function Flashcards({ uploadedFile }: FlashcardsProps) {
+export default function Flashcards({ uploadedFile, darkMode }: FlashcardsProps) {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);

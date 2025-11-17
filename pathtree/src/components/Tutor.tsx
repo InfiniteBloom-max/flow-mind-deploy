@@ -14,6 +14,7 @@ interface UploadedFile {
 
 interface TutorProps {
   uploadedFile: UploadedFile;
+  darkMode: boolean;
 }
 
 interface Message {
@@ -31,7 +32,7 @@ interface TutorResponse {
   tips: string[];
 }
 
-export default function Tutor({ uploadedFile }: TutorProps) {
+export default function Tutor({ uploadedFile, darkMode }: TutorProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);

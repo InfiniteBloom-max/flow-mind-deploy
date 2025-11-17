@@ -14,6 +14,7 @@ interface UploadedFile {
 
 interface SummariesProps {
   uploadedFile: UploadedFile;
+  darkMode: boolean;
 }
 
 type SummaryType = 'one_page' | 'five_page' | 'chapters';
@@ -24,7 +25,7 @@ interface Summary {
   chapters?: Array<{ title: string; content: string }>;
 }
 
-export default function Summaries({ uploadedFile }: SummariesProps) {
+export default function Summaries({ uploadedFile, darkMode }: SummariesProps) {
   const [selectedType, setSelectedType] = useState<SummaryType>('one_page');
   const [summary, setSummary] = useState<Summary | null>(null);
   const [isLoading, setIsLoading] = useState(false);
