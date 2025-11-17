@@ -146,13 +146,16 @@ export async function generateSummary(content: string, type: 'one_page' | 'five_
 
     const summary = response.choices?.[0]?.message?.content || 'Summary generation failed';
     
+    // Ensure summary is a string
+    const summaryString = typeof summary === 'string' ? summary : JSON.stringify(summary);
+    
     if (type === 'chapters') {
       // Try to parse chapters
-      const chapters = summary.split(/Chapter \d+|Section \d+/i).filter(ch => ch.trim());
+      const chapters = summaryString.split(/Chapter \d+|Section \d+/i).filter(ch => ch.trim());
       return { chapters: chapters.map((ch, i) => ({ title: `Chapter ${i + 1}`, content: ch.trim() })) };
     }
     
-    return type === 'one_page' ? { one_page: summary } : { five_page: summary };
+    return type === 'one_page' ? { one_page: summaryString } : { five_page: summaryString };
   } catch (error) {
     console.error('Summary generation error:', error);
     throw new Error('Failed to generate summary');
