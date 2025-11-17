@@ -27,6 +27,7 @@ interface UploadedFile {
 
 interface KnowledgeTreeProps {
   uploadedFile: UploadedFile;
+  darkMode: boolean;
 }
 
 interface NodeData {
@@ -36,7 +37,7 @@ interface NodeData {
   level: number;
 }
 
-export default function KnowledgeTree({ uploadedFile }: KnowledgeTreeProps) {
+export default function KnowledgeTree({ uploadedFile, darkMode }: KnowledgeTreeProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [isLoading, setIsLoading] = useState(false);
