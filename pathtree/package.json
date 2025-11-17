@@ -1,0 +1,35 @@
+{
+  "name": "pathtree",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.9",
+    "@mistralai/mistralai": "^1.10.0",
+    "lucide-react": "^0.553.0",
+    "mammoth": "^1.11.0",
+    "multer": "^2.0.2",
+    "next": "^14.2.15",
+    "officegen": "^0.6.5",
+    "pdf-parse": "^2.2.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "reactflow": "^11.11.4",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "^14.2.15",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
