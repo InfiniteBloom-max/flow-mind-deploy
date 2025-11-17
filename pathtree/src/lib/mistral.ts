@@ -81,7 +81,9 @@ Return only valid JSON in this format:
     const content_text = response.choices?.[0]?.message?.content || '{}';
     
     try {
-      const parsed = JSON.parse(content_text);
+      // Ensure content_text is a string
+      const contentString = typeof content_text === 'string' ? content_text : JSON.stringify(content_text);
+      const parsed = JSON.parse(contentString);
       return parsed;
     } catch (parseError) {
       // Fallback: create a simple structure
@@ -186,7 +188,9 @@ Focus on important concepts, definitions, and key relationships.`;
     const content_text = response.choices?.[0]?.message?.content || '[]';
     
     try {
-      return JSON.parse(content_text);
+      // Ensure content_text is a string
+      const contentString = typeof content_text === 'string' ? content_text : JSON.stringify(content_text);
+      return JSON.parse(contentString);
     } catch (parseError) {
       // Fallback flashcards
       return concepts.slice(0, 10).map((concept, i) => ({
@@ -230,7 +234,9 @@ Return a JSON object with:
     const content_text = response.choices?.[0]?.message?.content || '{}';
     
     try {
-      return JSON.parse(content_text);
+      // Ensure content_text is a string
+      const contentString = typeof content_text === 'string' ? content_text : JSON.stringify(content_text);
+      return JSON.parse(contentString);
     } catch (parseError) {
       return {
         theory: `Theoretical explanation of ${nodeTitle}`,
@@ -279,7 +285,9 @@ Return a JSON object with:
     const content_text = response.choices?.[0]?.message?.content || '{}';
     
     try {
-      return JSON.parse(content_text);
+      // Ensure content_text is a string
+      const contentString = typeof content_text === 'string' ? content_text : JSON.stringify(content_text);
+      return JSON.parse(contentString);
     } catch (parseError) {
       return {
         explanation: `Here's an explanation of your question about: ${question}`,
