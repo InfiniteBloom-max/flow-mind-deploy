@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Upload, FileText, Brain, MessageSquare, BookOpen, Zap } from 'lucide-react';
+import { Upload, FileText, Brain, MessageSquare, BookOpen, Moon, Sun } from 'lucide-react';
 import FileUpload from '@/components/FileUpload';
 import KnowledgeTree from '@/components/KnowledgeTree';
 import Summaries from '@/components/Summaries';
@@ -21,6 +21,7 @@ interface UploadedFile {
 export default function Home() {
   const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(null);
   const [activeTab, setActiveTab] = useState<'upload' | 'tree' | 'summaries' | 'flashcards' | 'tutor'>('upload');
+  const [darkMode, setDarkMode] = useState(false);
 
   const tabs = [
     { id: 'upload', label: 'Upload', icon: Upload },
@@ -31,23 +32,46 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className={`min-h-screen transition-colors duration-300 ${
+      darkMode 
+        ? 'bg-gradient-to-br from-gray-900 to-gray-800' 
+        : 'bg-gradient-to-br from-blue-50 to-indigo-100'
+    }`}>
       <Settings />
+      
+      {/* Dark Mode Toggle */}
+      <button
+        onClick={() => setDarkMode(!darkMode)}
+        className={`fixed top-4 left-4 p-2 rounded-lg transition-colors z-50 ${
+          darkMode 
+            ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400' 
+            : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
+        }`}
+        title="Toggle Dark Mode"
+      >
+        {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+      </button>
+
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Zap className="h-8 w-8 text-indigo-600" />
-            <h1 className="text-4xl font-bold text-gray-900">PathTree</h1>
+            <h1 className={`text-4xl font-bold ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            }`}>Flow Mind</h1>
           </div>
-          <p className="text-lg text-gray-600">
+          <p className={`text-lg ${
+            darkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Transform your documents into interactive knowledge trees, summaries, flashcards, and more
           </p>
         </div>
 
         {/* Navigation Tabs */}
         <div className="flex justify-center mb-8">
-          <div className="bg-white rounded-lg shadow-md p-1 flex space-x-1">
+          <div className={`rounded-lg shadow-md p-1 flex space-x-1 ${
+            darkMode ? 'bg-gray-800' : 'bg-white'
+          }`}>
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
@@ -57,10 +81,16 @@ export default function Home() {
                   disabled={tab.id !== 'upload' && !uploadedFile}
                   className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
                     activeTab === tab.id
-                      ? 'bg-indigo-600 text-white'
+                      ? darkMode
+                        ? 'bg-indigo-500 text-white'
+                        : 'bg-indigo-600 text-white'
                       : uploadedFile || tab.id === 'upload'
-                      ? 'text-gray-700 hover:bg-gray-100'
-                      : 'text-gray-400 cursor-not-allowed'
+                      ? darkMode
+                        ? 'text-gray-300 hover:bg-gray-700'
+                        : 'text-gray-700 hover:bg-gray-100'
+                      : darkMode
+                        ? 'text-gray-500 cursor-not-allowed'
+                        : 'text-gray-400 cursor-not-allowed'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -72,25 +102,27 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
+        <div className={`rounded-lg shadow-lg p-6 ${
+          darkMode ? 'bg-gray-800' : 'bg-white'
+        }`}>
           {activeTab === 'upload' && (
-            <FileUpload onFileUploaded={setUploadedFile} />
+            <FileUpload onFileUploaded={setUploadedFile} darkMode={darkMode} />
           )}
           
           {activeTab === 'tree' && uploadedFile && (
-            <KnowledgeTree uploadedFile={uploadedFile} />
+            <KnowledgeTree uploadedFile={uploadedFile} darkMode={darkMode} />
           )}
           
           {activeTab === 'summaries' && uploadedFile && (
-            <Summaries uploadedFile={uploadedFile} />
+            <Summaries uploadedFile={uploadedFile} darkMode={darkMode} />
           )}
           
           {activeTab === 'flashcards' && uploadedFile && (
-            <Flashcards uploadedFile={uploadedFile} />
+            <Flashcards uploadedFile={uploadedFile} darkMode={darkMode} />
           )}
           
           {activeTab === 'tutor' && uploadedFile && (
-            <Tutor uploadedFile={uploadedFile} />
+            <Tutor uploadedFile={uploadedFile} darkMode={darkMode} />
           )}
         </div>
       </div>

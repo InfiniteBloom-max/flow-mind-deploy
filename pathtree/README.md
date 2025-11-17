@@ -1,4 +1,4 @@
-# PathTree ⚡
+# Flow Mind ⚡
 
 Transform your documents into interactive knowledge trees, summaries, flashcards, and AI tutor using Mistral AI.
 
@@ -31,8 +31,8 @@ Transform your documents into interactive knowledge trees, summaries, flashcards
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/pathtree.git
-   cd pathtree
+   git clone https://github.com/yourusername/flow-mind.git
+   cd flow-mind
    ```
 
 2. **Install dependencies**

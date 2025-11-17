@@ -14,9 +14,10 @@ interface UploadedFile {
 
 interface FileUploadProps {
   onFileUploaded: (file: UploadedFile) => void;
+  darkMode?: boolean;
 }
 
-export default function FileUpload({ onFileUploaded }: FileUploadProps) {
+export default function FileUpload({ onFileUploaded, darkMode = false }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -81,8 +82,10 @@ export default function FileUpload({ onFileUploaded }: FileUploadProps) {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Upload Your Document</h2>
-        <p className="text-gray-600">
+        <h2 className={`text-2xl font-bold mb-2 ${
+          darkMode ? 'text-white' : 'text-gray-900'
+        }`}>Upload Your Document</h2>
+        <p className={darkMode ? 'text-gray-300' : 'text-gray-600'}>
           Upload a PDF, Word document, or text file to get started
         </p>
       </div>
@@ -90,8 +93,12 @@ export default function FileUpload({ onFileUploaded }: FileUploadProps) {
       <div
         className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
           isDragging
-            ? 'border-indigo-500 bg-indigo-50'
-            : 'border-gray-300 hover:border-gray-400'
+            ? darkMode
+              ? 'border-indigo-400 bg-indigo-900/20'
+              : 'border-indigo-500 bg-indigo-50'
+            : darkMode
+              ? 'border-gray-600 hover:border-gray-500'
+              : 'border-gray-300 hover:border-gray-400'
         }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -100,19 +107,19 @@ export default function FileUpload({ onFileUploaded }: FileUploadProps) {
         {isUploading ? (
           <div className="flex flex-col items-center">
             <Loader2 className="h-12 w-12 text-indigo-600 animate-spin mb-4" />
-            <p className="text-lg font-medium text-gray-900">Processing your file...</p>
-            <p className="text-sm text-gray-600">This may take a few moments</p>
+            <p className={`text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>Processing your file...</p>
+            <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>This may take a few moments</p>
           </div>
         ) : uploadStatus === 'success' ? (
           <div className="flex flex-col items-center">
             <CheckCircle className="h-12 w-12 text-green-600 mb-4" />
-            <p className="text-lg font-medium text-gray-900">File uploaded successfully!</p>
-            <p className="text-sm text-gray-600">You can now explore the knowledge tree and other features</p>
+            <p className={`text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>File uploaded successfully!</p>
+            <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>You can now explore the knowledge tree and other features</p>
           </div>
         ) : uploadStatus === 'error' ? (
           <div className="flex flex-col items-center">
             <AlertCircle className="h-12 w-12 text-red-600 mb-4" />
-            <p className="text-lg font-medium text-gray-900">Upload failed</p>
+            <p className={`text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>Upload failed</p>
             <p className="text-sm text-red-600">{errorMessage}</p>
             <button
               onClick={() => setUploadStatus('idle')}
@@ -123,11 +130,11 @@ export default function FileUpload({ onFileUploaded }: FileUploadProps) {
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <Upload className="h-12 w-12 text-gray-400 mb-4" />
-            <p className="text-lg font-medium text-gray-900 mb-2">
+            <Upload className={`h-12 w-12 mb-4 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
+            <p className={`text-lg font-medium mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               Drag and drop your file here
             </p>
-            <p className="text-sm text-gray-600 mb-4">or</p>
+            <p className={`text-sm mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>or</p>
             <label className="cursor-pointer">
               <input
                 type="file"
@@ -140,7 +147,7 @@ export default function FileUpload({ onFileUploaded }: FileUploadProps) {
                 Choose File
               </span>
             </label>
-            <p className="text-xs text-gray-500 mt-4">
+            <p className={`text-xs mt-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               Supported formats: PDF, Word (.docx), Text (.txt)
             </p>
           </div>

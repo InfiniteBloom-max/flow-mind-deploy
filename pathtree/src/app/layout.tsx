@@ -7,7 +7,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PathTree - Transform Documents into Knowledge Trees",
+  title: "Flow Mind - Transform Documents into Knowledge Trees",
   description: "Convert PDFs, PPTX, and images into interactive knowledge trees, summaries, flashcards, and more with AI",
 };
 
